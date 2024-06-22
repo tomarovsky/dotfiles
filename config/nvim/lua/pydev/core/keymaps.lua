@@ -26,3 +26,11 @@ keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" 
 keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
 keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
 keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
+
+-- autorun snakefmt on save
+keymap.set("n", "<leader>fmts", ":!snakefmt -l 120 %", { desc = "Apply Snakefmt" }) -- format file using Snakefmt
+
+-- api.nvim_create_autocmd("FileType",
+--   { pattern = "snakemake", command = "autocmd BufWritePre <buffer> execute ':!snakefmt %'" })
+-- api.nvim_create_autocmd("FileType",
+--   { pattern = "python", command = "autocmd BufWritePre <buffer> execute ':!black -l 100 %'" })

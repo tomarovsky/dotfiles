@@ -6,10 +6,10 @@ return {
 
     conform.setup({
       formatters_by_ft = {
-        json = { "prettier" },
-        yaml = { "prettier" },
+        -- json = { "prettier" },
+        -- yaml = { "prettier" },
         markdown = { "prettier" },
-        python = { "isort", "black" },
+        -- python = { "isort", "black" },
       },
       format_on_save = {
         lsp_fallback = true,

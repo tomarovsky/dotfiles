@@ -74,8 +74,3 @@ api.nvim_create_autocmd({ "BufNewFile", "BufRead" },
 api.nvim_create_autocmd({ "BufRead", "BufNewFile" },
   { pattern = "*.py,*.smk", command = "match BadWhitespace /\\s\\+$/" })
 
--- autorun snakefmt on save
--- api.nvim_create_autocmd("FileType",
---   { pattern = "snakemake", command = "autocmd BufWritePre <buffer> execute ':!snakefmt %'" })
--- api.nvim_create_autocmd("FileType",
---   { pattern = "python", command = "autocmd BufWritePre <buffer> execute ':!black -l 100 %'" })

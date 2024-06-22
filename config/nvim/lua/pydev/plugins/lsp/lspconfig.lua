@@ -13,6 +13,11 @@ return {
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
     local keymap = vim.keymap -- for conciseness
+    
+    vim.diagnostic.config {
+      virtual_text = false,
+      update_in_insert = true,
+    }
 
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),

@@ -10,7 +10,7 @@ return {
     local mason_tool_installer = require("mason-tool-installer")
 
     mason.setup({
-      PATH = "prepend"
+      PATH = "append"
     })
 
     mason_lspconfig.setup({
