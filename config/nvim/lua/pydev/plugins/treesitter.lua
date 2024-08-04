@@ -21,6 +21,7 @@ return {
         "bash",
         "python",
         "snakemake",
+        "r",
         "yaml",
         "json",
         "toml",

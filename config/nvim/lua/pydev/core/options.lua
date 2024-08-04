@@ -53,7 +53,7 @@ opt.foldlevel = 99
 opt.completeopt = 'menuone,noselect'
 
 -- clipboard
--- opt.clipboard:append("unnamedplus") -- use system clipboard as default register
+opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 -- split windows
 opt.splitright = true -- split vertical window to the right

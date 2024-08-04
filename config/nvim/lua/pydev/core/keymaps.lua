@@ -2,9 +2,9 @@ vim.g.mapleader = " "
 
 local keymap = vim.keymap -- for conciseness
 
--- tabs
-keymap.set({ 'n', 'v' }, "<Tab>", ">>", { silent = true })
-keymap.set({ 'n', 'v' }, "<S-Tab>", "<<", { silent = true })
+-- -- tabs
+keymap.set({ 'v' }, "<Tab>", ">>", { silent = true })
+keymap.set({ 'v' }, "<S-Tab>", "<<", { silent = true })
 
 -- folding with the spacebar
 keymap.set("n", "<Space><Space>", "za")
@@ -28,9 +28,13 @@ keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) 
 keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
 
 -- autorun snakefmt on save
-keymap.set("n", "<leader>fmts", ":!snakefmt -l 120 %", { desc = "Apply Snakefmt" }) -- format file using Snakefmt
+keymap.set("n", "<leader>is", ":!snakefmt -l 120 %", { desc = "Apply Snakefmt" }) -- format file using Snakefmt
+keymap.set("n", "<leader>ii", ":!isort --profile black %", { desc = "Apply isort" }) -- format file using Isort
+keymap.set("n", "<leader>ib", ":!iblack -l 120 %", { desc = "Apply black" }) -- format file using black
 
--- api.nvim_create_autocmd("FileType",
---   { pattern = "snakemake", command = "autocmd BufWritePre <buffer> execute ':!snakefmt %'" })
--- api.nvim_create_autocmd("FileType",
+-- vim.api.nvim_create_autocmd("FileType",
+--   { pattern = "python", command = "autocmd BufWritePre <buffer> execute ':!isort --profile black %'" })
+-- vim.api.nvim_create_autocmd("FileType",
 --   { pattern = "python", command = "autocmd BufWritePre <buffer> execute ':!black -l 100 %'" })
+-- vim.api.nvim_create_autocmd("FileType",
+--   { pattern = "snakemake", command = "autocmd BufWritePre <buffer> execute ':!snakefmt %'" })
