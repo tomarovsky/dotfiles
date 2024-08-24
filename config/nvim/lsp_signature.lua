@@ -1,0 +1,15 @@
+-- return {
+--   "ray-x/lsp_signature.nvim",
+--   event="VeryLazy",
+--   config = function()
+--     local lsp_signature = require("lsp_signature")
+--     lsp_signature.setup({
+--       hi_parameter = "LspSignatureActiveParameter",
+--       floating_window=false,
+--       hint_enable = false,
+--       always_trigger = false,
+--       toggle_key = "<c-s>"
+--     })
+--   end,
+-- }
+--
