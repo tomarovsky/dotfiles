@@ -26,6 +26,8 @@ return {
         "black", -- python formatter
         "pylint", -- python linter
         "snakefmt", -- snakemake formatter
+        "prettier", -- markdown formatter
+        "stylua" -- lua formatter
       },
     })
   end,
