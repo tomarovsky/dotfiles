@@ -5,6 +5,10 @@ local keymap = vim.keymap
 -- folding with the spacebar
 keymap.set("n", "<Space><Space>", "za")
 
+-- tabs
+keymap.set({ 'n', 'v' }, "<Tab>", ">>", { silent = true })
+keymap.set({ 'n', 'v' }, "<S-Tab>", "<<", { silent = true })
+
 -- menu
 keymap.set("n", "<C-t>", function()
 	require("menu").open("default")
