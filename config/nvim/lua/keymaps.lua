@@ -2,24 +2,18 @@ vim.g.mapleader = " "
 
 local keymap = vim.keymap
 
+-- clipboard
+keymap.set({"n", "v", "x"}, '<leader>y', '"+y', { noremap = true, silent = true, desc = 'Yank to clipboard' })
+keymap.set({"n"}, '<leader>yy', '"+yy', { noremap = true, silent = true, desc = 'Yank line to clipboard' })
+
 -- folding with the spacebar
 keymap.set("n", "<Space><Space>", "za")
 
 -- tabs
-keymap.set({ 'n', 'v' }, "<Tab>", ">>", { silent = true })
-keymap.set({ 'n', 'v' }, "<S-Tab>", "<<", { silent = true })
-
--- menu
-keymap.set("n", "<C-t>", function()
-	require("menu").open("default")
-end, {})
-
-keymap.set("n", "<RightMouse>", function()
-	vim.cmd.exec('"normal! \\<RightMouse>"')
-
-	local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
-	require("menu").open(options, { mouse = true })
-end, {})
+keymap.set("n",    "<Tab>",         ">>",  { noremap = true, silent = true })
+keymap.set("n",    "<S-Tab>",       "<<",  { noremap = true, silent = true })
+keymap.set("v",    "<Tab>",         ">gv", { noremap = true, silent = true })
+keymap.set("v",    "<S-Tab>",       "<gv", { noremap = true, silent = true })
 
 -- keys for split navigation
 keymap.set("n", "<C-J>", "<C-W><C-J>")
@@ -37,12 +31,8 @@ keymap.set("n", "<S-l>", "<cmd>bn<CR>", { desc = "Go to next tab" }) -- open new
 keymap.set("n", "<S-h>", "<cmd>bp<CR>", { desc = "Go to previous tab" }) -- close current tab
 keymap.set("n", "<S-x>", "<cmd>bd<CR>", { desc = "Close tab" }) --  go to next tab
 
--- keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- open new tab keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" }) -- close current tab
--- keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  go to next tab
--- keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
--- keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
-
 -- autorun snakefmt on save
 keymap.set("n", "<leader>is", ":w | !snakefmt -l 150 %", { desc = "Apply Snakefmt" }) -- format file using Snakefmt
 keymap.set("n", "<leader>ii", ":w | !isort --profile black %", { desc = "Apply isort" }) -- format file using Isort
 keymap.set("n", "<leader>ib", ":w | !black -l 150 %", { desc = "Apply black" }) -- format file using black
+keymap.set("n", "<leader>ir", ":w | !ruff format --line-length 150 %", { desc = "Apply ruff" }) -- format file using black

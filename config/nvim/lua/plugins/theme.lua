@@ -2,20 +2,31 @@ return {
   "ellisonleao/gruvbox.nvim",
   priority = 1000,
   config = function()
-    local opt = vim.opt
-    local cmd = vim.cmd
-    -- turn on termguicolors for tokyonight colorscheme to work
-    -- (have to use iterm2 or any other true color terminal)
-    opt.termguicolors = true
-    opt.background = "dark" -- colorschemes that can be light or dark will be made dark
-    cmd("colorscheme gruvbox")
-    -- transparent background
-    cmd.highlight({ "normal", "guibg=NONE ctermbg=NONE" })
-    -- highlight bad whitespaces
-    cmd.highlight({ "BadWhitespace", "ctermbg=red guibg=red" })
-    -- disable gray left column
-    cmd.highlight({ "clear", "SignColumn" })
-    opt.splitbelow = true
-    opt.splitright = true
+    require("gruvbox").setup({
+      terminal_colors = true, -- add neovim terminal colors
+      undercurl = true,
+      underline = true,
+      bold = true,
+      italic = {
+        strings = true,
+        emphasis = true,
+        comments = true,
+        operators = false,
+        folds = true,
+      },
+      strikethrough = true,
+      invert_selection = false,
+      invert_signs = false,
+      invert_tabline = false,
+      invert_intend_guides = false,
+      inverse = true, -- invert background for search, diffs, statuslines and errors
+      contrast = "hard", -- can be "hard", "soft" or empty string
+      palette_overrides = {},
+      overrides = {},
+      dim_inactive = false,
+      transparent_mode = true,
+    })
+
+    vim.cmd("colorscheme gruvbox")
   end,
 }

@@ -5,7 +5,7 @@ local api = vim.api
 
 opt.buftype = ""
 -- opt.mouse = ""
-opt.relativenumber = false
+opt.relativenumber = true
 opt.number = true
 
 -- tabs & indentation
@@ -17,7 +17,7 @@ opt.expandtab = true -- expand tab to spaces
 opt.autoindent = true -- copy indent from current line when starting new one
 opt.confirm = true
 
-opt.wrap = false
+opt.wrap = true
 
 opt.scrolloff = 8 -- minimum number of lines to keep above and below the cursor
 opt.sidescrolloff = 8 --minimum number of columns to keep above and below the cursor
@@ -26,7 +26,7 @@ opt.sidescrolloff = 8 --minimum number of columns to keep above and below the cu
 opt.ignorecase = true -- ignore case when searching
 opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
 
-opt.guicursor = ""
+-- opt.guicursor = ""
 opt.signcolumn = "yes" -- show sign column so that text doesn't shift
 
 -- highlight on yank
@@ -45,29 +45,39 @@ opt.hlsearch = true
 -- save undo history
 opt.undofile = true
 
--- backspace
-opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
-opt.ruler = true
-
--- folding
-opt.foldmethod = "indent"
-opt.foldlevel = 99
-
--- completeopt to have a better completion experience
-opt.completeopt = "menuone,noselect"
-
--- clipboard
-opt.clipboard:append("unnamedplus") -- use system clipboard as default register
-
--- split windows
-opt.splitright = true -- split vertical window to the right
-opt.splitbelow = true -- split horizontal window to the bottom
-
 -- turn off swapfile
 opt.swapfile = false
 
 -- disable status line
 opt.laststatus = 0
+
+-- split windows
+opt.splitright = true -- split vertical window to the right
+opt.splitbelow = true -- split horizontal window to the bottom
+
+-- -- backspace
+-- opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
+-- opt.ruler = true
+--
+-- folding
+opt.foldmethod = "indent"
+opt.foldlevel = 99
+api.nvim_create_autocmd({"BufWinLeave"}, {
+  pattern = {"*.*"},
+  desc = "save view (folds), when closing file",
+  command = "mkview",
+})
+api.nvim_create_autocmd({"BufWinEnter"}, {
+  pattern = {"*.*"},
+  desc = "load view (folds), when opening file",
+  command = "silent! loadview"
+})
+
+-- completeopt to have a better completion experience
+opt.completeopt = "menuone,noselect"
+
+-- clipboard
+-- opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
 -- decrease update time
 opt.updatetime = 250

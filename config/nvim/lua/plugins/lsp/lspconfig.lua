@@ -64,7 +64,7 @@ return {
         keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
         
         opts.desc = "Show signature help for current function"
-        keymap.set('i', 'K', vim.lsp.buf.signature_help, opts) -- show signature help for current function
+        keymap.set('n', 'J', vim.lsp.buf.signature_help, opts) -- show signature help for current function
 
         opts.desc = "Restart LSP"
         keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
@@ -88,36 +88,18 @@ return {
           filetypes = { "python" },
         })
       end,
-            -- Python
-            require("lspconfig")["pylsp"].setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-                settings = {
-                    pylsp = {
-                        plugins = {
-                            flake8 = {
-                                enabled = true,
-                                maxLineLength = 88, -- Black's line length
-                            },
-                            -- Disable plugins overlapping with flake8
-                            pycodestyle = {
-                                enabled = false,
-                            },
-                            mccabe = {
-                                enabled = false,
-                            },
-                            pyflakes = {
-                                enabled = false,
-                            },
-                            -- Use Black as the formatter
-                            autopep8 = {
-                                enabled = false,
-                            },
-                        },
+        require("lspconfig")["pylsp"].setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+            settings = {
+                pylsp = {
+                    plugins = {
+                        flake8 = { enabled = true, maxLineLength = 120, ignore  = { "E501,F401" } },
                     },
                 },
-            })
+            }
+        })
     })
-  end,
+    end,
 }
 
