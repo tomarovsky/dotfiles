@@ -31,7 +31,7 @@ keymap.set("n", "<S-l>", "<cmd>bn<CR>", { desc = "Go to next tab" }) -- open new
 keymap.set("n", "<S-h>", "<cmd>bp<CR>", { desc = "Go to previous tab" }) -- close current tab
 keymap.set("n", "<S-x>", "<cmd>bd<CR>", { desc = "Close tab" }) --  go to next tab
 
--- autorun snakefmt on save
+-- auto formaters
 keymap.set("n", "<leader>is", ":w | !snakefmt -l 150 %", { desc = "Apply Snakefmt" }) -- format file using Snakefmt
 keymap.set("n", "<leader>ii", ":w | !isort --profile black %", { desc = "Apply isort" }) -- format file using Isort
 keymap.set("n", "<leader>ib", ":w | !black -l 150 %", { desc = "Apply black" }) -- format file using black
