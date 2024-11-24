@@ -74,8 +74,8 @@ return {
           vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
         end
 
-        -- -- used to enable autocompletion (assign to every lsp server config)
-        -- local capabilities = cmp_nvim_lsp.default_capabilities()
+        -- used to enable autocompletion (assign to every lsp server config)
+        local capabilities = cmp_nvim_lsp.default_capabilities()
 
         -- configure lsp language servers in a specific way
         mason_lspconfig.setup_handlers({
@@ -88,18 +88,8 @@ return {
 
             -- configure python server
             lspconfig["pyright"].setup({
-                -- capabilities = capabilities,
-                filetypes = { "python" , "snakefile"},
-                capabilities = {
-                    textDocument = {
-                        publishDiagnostics = {
-                            tagSupport = {
-                                valueSet = { 2 },
-                            },
-                        },
-                    },
-                },
-            }),
+                capabilities = capabilities
+            })
         })
     end,
 }

@@ -1,0 +1,6 @@
+- Add Russian language support
+- Add Markdown.nvim
+- Add auto saving after turn to normal mode
+
+
+
