@@ -17,18 +17,16 @@ return {
       -- list of servers for mason to install
       ensure_installed = {
         "pyright",
-        "ruff_lsp"
+        -- "ruff_lsp"
       },
     })
 
     mason_tool_installer.setup({
       ensure_installed = {
+        "isort", -- python formatter
+        "black", -- python formatter
         "snakefmt", -- snakemake formatter
-        -- "isort", -- python formatter
-        -- "black", -- python formatter
-        -- "pylint", -- python linter
-        -- "prettier", -- markdown formatter
-        -- "stylua" -- lua formatter
+        "stylua" -- lua formatter
       },
     })
   end,

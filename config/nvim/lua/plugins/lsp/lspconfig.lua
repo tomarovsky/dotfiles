@@ -3,15 +3,12 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
-        "antosha417/nvim-lsp-file-operations",
-        "ray-x/lsp_signature.nvim",
+        { "antosha417/nvim-lsp-file-operations", config = true },
+        { "folke/neodev.nvim", opts = {} },
     },
 
     config = function()
-        local lspconfig = require("lspconfig")
-        local mason_lspconfig = require("mason-lspconfig")
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
         local keymap = vim.keymap
 
         vim.diagnostic.config {
@@ -19,21 +16,22 @@ return {
           update_in_insert = true,
         }
 
-        -- Use LspAttach to execute this logic whenever an lsp client attaches to a buffer
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("UserLspConfig", {}),
             callback = function(ev)
+                -- Buffer local mappings.
+                -- See `:help vim.lsp.*` for documentation on any of the below functions
                 local opts = { buffer = ev.buf, silent = true }
 
                 -- set keybinds
                 opts.desc = "Show LSP references"
-                keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
-
-                opts.desc = "Show LSP definitions"
-                keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+                keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
                 opts.desc = "Go to declaration"
                 keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+
+                opts.desc = "Show LSP definitions"
+                keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
 
                 opts.desc = "Show LSP implementations"
                 keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
@@ -59,37 +57,60 @@ return {
                 opts.desc = "Go to next diagnostic"
                 keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
 
-                -- opts.desc = "Show documentation for what is under cursor"
-                -- keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+                opts.desc = "Show documentation for what is under cursor"
+                keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
                 opts.desc = "Restart LSP"
                 keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
             end,
         })
 
-        -- Change the diagnostic symbols in the sign column (gutter)
-        local signs = { Error = "✘", Warn = "▲", Hint = "⚑", Info = "»" }
-        for type, icon in pairs(signs) do
-          local hl = "DiagnosticSign" .. type
-          vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-        end
-
         -- used to enable autocompletion (assign to every lsp server config)
         local capabilities = cmp_nvim_lsp.default_capabilities()
 
-        -- configure lsp language servers in a specific way
-        mason_lspconfig.setup_handlers({
-            -- default handler for installed servers
-            -- function(server_name)
-            --     lspconfig[server_name].setup({
-            --         capabilities = capabilities,
-            --     })
-            -- end,
+        vim.diagnostic.config({
+            signs = {
+                text = {
+                    [vim.diagnostic.severity.ERROR] = "✘ ",
+                    [vim.diagnostic.severity.WARN] = "▲ ",
+                    [vim.diagnostic.severity.HINT] = "⚑ ",
+                    [vim.diagnostic.severity.INFO] = "» ",
+            },
+          },
+        })
 
-            -- configure python server
-            lspconfig["pyright"].setup({
-                capabilities = capabilities
-            })
+        vim.lsp.config("*", {
+            capabilities = capabilities,
+        })
+
+        vim.lsp.config("svelte", {
+            on_attach = function(client, bufnr)
+                vim.api.nvim_create_autocmd("BufWritePost", {
+                    pattern = { "*.js", "*.ts" },
+                    callback = function(ctx)
+                        -- Here use ctx.match instead of ctx.file
+                        client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+                    end,
+                })
+            end,
+        })
+
+        vim.lsp.config("pyright", {
+            filetypes = { "py", "python" },
+        })
+
+        vim.lsp.config("lua_ls", {
+            settings = {
+                Lua = {
+                    -- make the language server recognize "vim" global
+                    diagnostics = {
+                        globals = { "vim" },
+                    },
+                    completion = {
+                        callSnippet = "Replace",
+                    },
+                },
+            },
         })
     end,
 }
