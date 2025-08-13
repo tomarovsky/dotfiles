@@ -2,6 +2,7 @@ vim.cmd("let g:netrw_liststyle = 3")
 
 local opt = vim.opt
 local api = vim.api
+local keymap = vim.keymap
 
 opt.buftype = ""
 -- opt.mouse = ""
@@ -10,6 +11,7 @@ opt.number = true
 
 -- Russian language
 vim.cmd("set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz")
+keymap.set("i", "<C-с>", "<C-c>")
 
 -- tabs & indentation
 opt.tabstop = 4 -- 4 spaces for tabs (prettier default)
